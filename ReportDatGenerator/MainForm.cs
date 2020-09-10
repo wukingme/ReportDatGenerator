@@ -67,7 +67,9 @@ namespace ReportDatGenerator
             {
                 int rowIndex = 4, dataIndex = 0;
                 double timeSpan = 15;
-                double rb1 = 0.00000f, rf2_1 = 0.00000f, rf2_2 = 0.00000f, rb1_2 = 0.00000f, z_Yzd = 0.00000f, z_Wzd = 0.00000f;
+                double rb1 = 0.00000f, rf2_1 = 0.00000f, rf2_2 = 0.00000f, rb1_2 = 0.00000f,
+                    z_Yzd = 0.00000f, //已知点
+                    z_Wzd = 0.00000f;//未知点
                 foreach (DataRow row in dt.Rows)
                 {
                     dataIndex = dt.Rows.IndexOf(row);
@@ -76,8 +78,12 @@ namespace ReportDatGenerator
                     z_Wzd = Convert.ToDouble(row[3]);
                     if (dataIndex % 2 == 0)
                     {
-                        sbdDatData.AppendLine($"For M5|Adr     {dataIndex}|KD1       {row[0]}      {DateTime.Now.AddMilliseconds(timeSpan):HH:ss:iii}   4 |Rb        1.69016 m   |HD         10.253 m   |                      | ");
+                        sbdDatData.AppendLine($"For M5|Adr     {dataIndex}|KD1       {row[0]}      {DateTime.Now.AddMilliseconds(timeSpan):HH:ss:iii}   4 |Rb        {rb1} m   |HD         10.253 m   |                      | ");
+                        sbdDatData.AppendLine($"For M5|Adr     {dataIndex++}|KD1       {row[0]}      {DateTime.Now.AddMilliseconds(timeSpan):HH:ss:iii}   4 |Rf        {rb1} m   |HD         10.253 m   |                      | ");
+                        sbdDatData.AppendLine($"For M5|Adr     {dataIndex++}|KD1       {row[0]}      {DateTime.Now.AddMilliseconds(timeSpan):HH:ss:iii}   4 |Rf        {rb1} m   |HD         10.253 m   |                      | ");
+                        sbdDatData.AppendLine($"For M5|Adr     {dataIndex++}|KD1       {row[0]}      {DateTime.Now.AddMilliseconds(timeSpan):HH:ss:iii}   4 |Rb        {rb1} m   |HD         10.253 m   |                      | ");
                     }
+                    sbdDatData.AppendLine($"For M5|Adr     {dataIndex++}|KD1       {row[0]}      {DateTime.Now.AddMilliseconds(timeSpan):HH:ss:iii}   4 |Rb        {rb1} m   |HD         10.253 m   |                      | ");
                 }
             }
         }
